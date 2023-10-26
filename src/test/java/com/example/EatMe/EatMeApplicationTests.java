@@ -1,10 +1,10 @@
-package com.example.Fooderando;
+package com.example.EatMe;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class FooderandoApplicationTests {
+class EatMeApplicationTests {
 
 	@Test
 	void contextLoads() {

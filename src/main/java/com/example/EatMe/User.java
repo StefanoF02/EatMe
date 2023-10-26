@@ -1,4 +1,4 @@
-package com.example.Fooderando;
+package com.example.EatMe;
 
 public class User {
 
