@@ -11,7 +11,7 @@
 	<groupId>com.example</groupId>
 	<artifactId>EatMe</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Fooderando</name>
+	<name>EatMe</name>
 	<description>A small spring boot project with database to create users, order food from different restaurants.</description>
 	<properties>
 		<java.version>17</java.version>
