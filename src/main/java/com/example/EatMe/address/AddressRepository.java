@@ -1,7 +1,9 @@
-package com.example.EatMe.repository;
+package com.example.EatMe.address;
 
-import com.example.EatMe.model.Address;
 import org.springframework.data.repository.CrudRepository;
 
+import java.util.Optional;
+
 public interface AddressRepository extends CrudRepository<Address, Integer> {
+    Optional<Address> findAddressIdByUserId(int userId);
 }

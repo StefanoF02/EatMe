@@ -1,6 +1,5 @@
-package com.example.EatMe.repository;
+package com.example.EatMe.user;
 
-import com.example.EatMe.model.User;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Optional;

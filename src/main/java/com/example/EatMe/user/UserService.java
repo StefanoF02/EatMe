@@ -1,7 +1,5 @@
-package com.example.EatMe.service;
+package com.example.EatMe.user;
 
-import com.example.EatMe.model.User;
-import com.example.EatMe.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +20,7 @@ public class UserService {
             return new ResponseEntity("Email is already used.", HttpStatus.BAD_REQUEST);
         }else{
             userRepository.save(newUser);
-            return new ResponseEntity("New user added.", HttpStatus.OK);
+            return new ResponseEntity<User>(newUser, HttpStatus.OK);
         }
 
     }
@@ -36,6 +34,21 @@ public class UserService {
             }else{
                 return new ResponseEntity("User not found", HttpStatus.NOT_FOUND);
             }
+    }
+
+    public ResponseEntity<User> setPassword(@RequestParam(value = "id") int id, @RequestParam(value = "oldPassword") String oldPassword, @RequestParam(value = "newPassword") String newPassword){
+        Optional<User> userToEdit = userRepository.findById(id);
+        if(userToEdit.isPresent()){
+            if(userToEdit.get().getPassword().equals(oldPassword)) {
+                userToEdit.get().setPassword(newPassword);
+                User userToSave = userRepository.save(userToEdit.get());
+                return new ResponseEntity("Password was changed", HttpStatus.OK);
+            }else{
+                return new ResponseEntity("Wrong password", HttpStatus.UNAUTHORIZED);
+            }
+        }else{
+            return new ResponseEntity("User not found", HttpStatus.NOT_FOUND);
+        }
     }
 
     public ResponseEntity<User> deleteUser(@RequestParam(value = "id") int id){

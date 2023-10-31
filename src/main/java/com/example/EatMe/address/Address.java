@@ -1,4 +1,4 @@
-package com.example.EatMe.model;
+package com.example.EatMe.address;
 
 import jakarta.persistence.*;
 

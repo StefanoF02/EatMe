@@ -1,8 +1,6 @@
-package com.example.EatMe.model;
+package com.example.EatMe.user;
 
 import jakarta.persistence.*;
-
-import java.util.Set;
 
 @Entity
 public class User {
@@ -15,19 +13,19 @@ public class User {
     private String surname;
     @Column(unique = true, nullable = false)
     private String mail;
+
+    @Column(nullable = false)
+    private String password;
+
+    public String getPassword() {
+        return password;
+    }
+
     @Column(nullable = false)
     private String userType;
 
-    @OneToMany
-    @JoinColumn(name = "userId")
-    private Set<Address> addresses;
-
-    public Set<Address> getAddresses() {
-        return addresses;
-    }
-
-    public void setAddresses(Set<Address> addresses) {
-        this.addresses = addresses;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Integer getId() {
@@ -70,13 +68,6 @@ public class User {
         this.userType = userType;
     }
 
-//    public Set<Address> getUserAddress() {
-//        return userAddress;
-//    }
-//
-//    public void setUserAddress(Set<Address> userAddress) {
-//        this.userAddress = userAddress;
-//    }
 }
 
 
