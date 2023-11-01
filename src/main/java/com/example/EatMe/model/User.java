@@ -1,4 +1,4 @@
-package com.example.EatMe.user;
+package com.example.EatMe.model;
 
 import jakarta.persistence.*;
 
@@ -17,13 +17,16 @@ public class User {
     @Column(nullable = false)
     private String password;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_id", referencedColumnName = "id")
+    public Address address;
+
+    @Column(nullable = true)
+    private String userType;
+
     public String getPassword() {
         return password;
     }
-
-    @Column(nullable = false)
-    private String userType;
-
     public void setPassword(String password) {
         this.password = password;
     }
@@ -60,6 +63,13 @@ public class User {
         this.mail = mail;
     }
 
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
     public String getUserType() {
         return userType;
     }

@@ -1,5 +1,6 @@
-package com.example.EatMe.address;
+package com.example.EatMe.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -13,8 +14,21 @@ public class Address {
     private Integer streetNumber;
     @Column(nullable = false)
     private Integer postcode;
+    @JsonIgnore
+    @OneToOne(mappedBy = "address")
+    private User user;
 
-    private Integer userId;
+    @JsonIgnore
+    @OneToOne(mappedBy = "address")
+    private Vendor vendor;
+
+    public Vendor getVendor() {
+        return vendor;
+    }
+
+    public void setVendor(Vendor vendor) {
+        this.vendor = vendor;
+    }
 
     public Integer getId() {
         return id;
@@ -48,11 +62,11 @@ public class Address {
         this.postcode = postcode;
     }
 
-    public Integer getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 }

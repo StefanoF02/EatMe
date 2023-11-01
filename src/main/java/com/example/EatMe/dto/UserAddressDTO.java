@@ -1,8 +1,9 @@
-package com.example.EatMe.user;
+package com.example.EatMe.dto;
 
-import com.example.EatMe.address.Address;
+import com.example.EatMe.model.Address;
+import com.example.EatMe.model.User;
 
-public class UserAddressCreationDTO {
+public class UserAddressDTO {
 
     private User user;
     private Address address;
