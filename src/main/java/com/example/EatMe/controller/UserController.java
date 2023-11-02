@@ -34,8 +34,13 @@ public class UserController {
     }
 
     @PatchMapping("/edit/mail")
-    public ResponseEntity<User> editMail(@RequestParam(value = "id") int id, @RequestParam(value = "mail") String mail){
-        return userService.setEmail(id, mail);
+    public ResponseEntity<String> editMail(@RequestParam(value = "id") int id, @RequestParam(value = "mail") String mail){
+        User updatedUser = userService.setEmail(id, mail);
+        if(updatedUser != null){
+            return new ResponseEntity<String>("Email got updated to " + updatedUser.getMail(), HttpStatus.OK);
+        }else{
+            return new ResponseEntity<String>("Error user could not be found", HttpStatus.NOT_FOUND);
+        }
     }
 
     @PatchMapping("/edit/password")
