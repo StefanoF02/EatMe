@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserAddressMapper {
     public CustomerAddressDTO toUserAddress(User user){
-        String name = user.getName();
+        String name = user.getFirstname();
         String surname = user.getSurname();
         String mail = user.getMail();
         String password = user.getPassword();

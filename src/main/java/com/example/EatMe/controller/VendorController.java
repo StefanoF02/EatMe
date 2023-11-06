@@ -27,7 +27,7 @@ public class VendorController {
     }
 
     @PatchMapping("/edit/restaurantName")
-    public ResponseEntity<Vendor> changeName(@RequestParam(value= "currentRestaurantName") String currentRestaurantName, @RequestParam(value= "newRestaurantName") String newRestaurantName){
+    public ResponseEntity<Vendor> editName(@RequestParam(value= "currentRestaurantName") String currentRestaurantName, @RequestParam(value= "newRestaurantName") String newRestaurantName){
         Vendor updatedVendor = vendorService.changeName(currentRestaurantName,newRestaurantName);
         if(updatedVendor != null){
             return new ResponseEntity("Name was changed to " + updatedVendor.getRestaurantName(), HttpStatus.OK);

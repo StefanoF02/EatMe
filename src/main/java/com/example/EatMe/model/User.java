@@ -1,5 +1,6 @@
 package com.example.EatMe.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 @MappedSuperclass
 public class User {
@@ -8,7 +9,7 @@ public class User {
     private Integer id;
 
     @Column(nullable = false)
-    private String name;
+    private String firstname;
 
     @Column(nullable = false)
     private String surname;
@@ -19,6 +20,7 @@ public class User {
     @Column(nullable = false)
     private String password;
 
+    @JsonIgnore
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id", referencedColumnName = "id")
     public Address address;
@@ -41,12 +43,12 @@ public class User {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstname() {
+        return firstname;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstname(String name) {
+        this.firstname = name;
     }
 
     public String getSurname() {

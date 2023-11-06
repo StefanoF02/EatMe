@@ -1,12 +1,10 @@
 package com.example.EatMe.service;
 
 import com.example.EatMe.model.Customer;
-import com.example.EatMe.model.User;
 import com.example.EatMe.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Optional;
 
@@ -15,7 +13,7 @@ public class CustomerService {
     @Autowired
     private CustomerRepository customerRepository;
 
-    public Customer setEmail(@RequestParam(value = "id") int id,@RequestParam(value = "mail") String mail){
+    public Customer setEmail(int id, String mail){
         Optional<Customer> customerToEdit = customerRepository.findById(id);
             if(customerToEdit.isPresent()){
                 //Comparing old email to new email
@@ -27,18 +25,30 @@ public class CustomerService {
             }
     }
 
-    public HttpStatus setPassword(@RequestParam(value = "id") int id, @RequestParam(value = "oldPassword") String oldPassword, @RequestParam(value = "newPassword") String newPassword){
+    public HttpStatus setPassword(int id, String oldPassword, String newPassword){
         Optional<Customer> customerToEdit = customerRepository.findById(id);
         if(customerToEdit.isPresent()){
             if(customerToEdit.get().getPassword().equals(oldPassword)) {
                 customerToEdit.get().setPassword(newPassword);
-                User userToSave = customerRepository.save(customerToEdit.get());
+                Customer customerToSave = customerRepository.save(customerToEdit.get());
                 return HttpStatus.OK;
             }else{
                 return HttpStatus.UNAUTHORIZED;
             }
         }else{
             return HttpStatus.NOT_FOUND;
+        }
+    }
+
+    public boolean setName(int id, String newName, String newSurname){
+        Optional<Customer> customerToEdit = customerRepository.findById(id);
+        if(customerToEdit.isPresent()){
+            customerToEdit.get().setFirstname(newName);
+            customerToEdit.get().setSurname(newSurname);
+            Customer customerToSave = customerRepository.save(customerToEdit.get());
+            return true;
+        }else{
+            return false;
         }
     }
 

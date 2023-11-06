@@ -6,7 +6,6 @@ import com.example.EatMe.repository.VendorRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 @Service
 public class VendorAddressService {
@@ -15,7 +14,7 @@ public class VendorAddressService {
     @Autowired
     private AddressRepository addressRepository;
     private ObjectMapper mapper;
-    public VendorAddressDTO createVendorAddressDTO(@RequestBody VendorAddressDTO vendorAddressDTO) {
+    public VendorAddressDTO createVendorAddressDTO(VendorAddressDTO vendorAddressDTO) {
         var ven = vendorRepository.findByRestaurantName(vendorAddressDTO.getVendor().getRestaurantName());
         if(ven.isPresent()){
             return null;

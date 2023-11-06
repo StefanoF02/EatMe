@@ -55,6 +55,15 @@ public class CustomerController {
         }
     }
 
+    @PatchMapping("/edit/name")
+    public ResponseEntity<HttpStatus> editName(@RequestParam(value = "id") int id,@RequestParam(value = "newName") String newName, @RequestParam(value = "newSurname") String newSurname){
+        if(customerService.setName(id,newName,newSurname) == true){
+            return new ResponseEntity("Name was changed", HttpStatus.OK );
+        }else{
+            return new ResponseEntity("User not found", HttpStatus.NOT_FOUND );
+        }
+    }
+
     @DeleteMapping("/delete")
     public ResponseEntity<CustomerAddressDTO> deleteUser(@RequestParam(value = "id") int id){
         if(customerAddressService.deleteUserAddressDTO(id) == true){
@@ -63,5 +72,7 @@ public class CustomerController {
             return new ResponseEntity("User not found", HttpStatus.OK);
         }
     }
+
+
 
 }

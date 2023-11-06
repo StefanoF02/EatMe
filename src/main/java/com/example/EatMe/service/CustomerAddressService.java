@@ -6,8 +6,6 @@ import com.example.EatMe.repository.AddressRepository;
 import com.example.EatMe.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Service
 public class CustomerAddressService {
@@ -16,7 +14,7 @@ public class CustomerAddressService {
     @Autowired
     private AddressRepository addressRepository;
 
-    public CustomerAddressDTO createUserAddressDTO(@RequestBody CustomerAddressDTO customerAddressDTO){
+    public CustomerAddressDTO createUserAddressDTO(CustomerAddressDTO customerAddressDTO){
         var customerInDB = customerRepository.findByMail(customerAddressDTO.getCustomer().getMail());
         if(customerInDB.isPresent()){
             return null;
@@ -28,7 +26,7 @@ public class CustomerAddressService {
         }
     }
 
-    public Address editAddress(@RequestParam(value = "id") int id,@RequestBody Address updatedAddress){
+    public Address editAddress(int id, Address updatedAddress){
         var customerInDB = customerRepository.findById(id);
         if(customerInDB.isPresent()){
             var addressId = customerInDB.get().getAddress().getId();
@@ -40,7 +38,7 @@ public class CustomerAddressService {
         return null;
     }
 
-    public Address getAddress(@RequestParam(value = "id") int id){
+    public Address getAddress(int id){
         var customerInDB = customerRepository.findById(id);
         if(customerInDB.isPresent()){
         Address returningAddress = customerInDB.get().getAddress();
@@ -50,7 +48,7 @@ public class CustomerAddressService {
         }
     }
 
-    public boolean deleteUserAddressDTO(@RequestParam(value = "id") int id){
+    public boolean deleteUserAddressDTO(int id){
         var customerToDelete = customerRepository.findById(id);
         if(customerToDelete.isPresent()){
             var addressIDToDelete = customerToDelete.get().getAddress().getId();
