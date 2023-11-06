@@ -16,7 +16,7 @@ public class VendorAddressService {
     private AddressRepository addressRepository;
     private ObjectMapper mapper;
     public VendorAddressDTO createVendorAddressDTO(@RequestBody VendorAddressDTO vendorAddressDTO) {
-        var ven = vendorRepository.findByName(vendorAddressDTO.getVendor().getName());
+        var ven = vendorRepository.findByRestaurantName(vendorAddressDTO.getVendor().getRestaurantName());
         if(ven.isPresent()){
             return null;
         }else{

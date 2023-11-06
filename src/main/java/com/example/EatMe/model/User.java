@@ -1,16 +1,18 @@
 package com.example.EatMe.model;
 
 import jakarta.persistence.*;
-
-@Entity
+@MappedSuperclass
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     @Column(nullable = false)
     private String name;
+
     @Column(nullable = false)
     private String surname;
+
     @Column(unique = true, nullable = false)
     private String mail;
 

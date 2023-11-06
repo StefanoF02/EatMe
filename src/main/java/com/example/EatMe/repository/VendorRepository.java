@@ -7,5 +7,5 @@ import java.util.Optional;
 
 
 public interface VendorRepository extends CrudRepository<Vendor, Integer> {
-    Optional<Vendor> findByName(String name);
+    Optional<Vendor> findByRestaurantName(String restaurantName);
 }

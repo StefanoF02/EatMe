@@ -1,22 +1,20 @@
 package com.example.EatMe.dto;
 
 import com.example.EatMe.model.Address;
-import com.example.EatMe.model.User;
+import com.example.EatMe.model.Customer;
 
-public class UserAddressDTO {
+public class CustomerAddressDTO {
 
-    private User user;
+    private Customer customer;
     private Address address;
 
-
-    public User getUser() {
-        return user;
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
-
     public Address getAddress() {
         return address;
     }

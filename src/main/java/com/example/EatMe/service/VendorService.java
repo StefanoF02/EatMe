@@ -13,11 +13,11 @@ public class VendorService {
     @Autowired
     private VendorRepository vendorRepository;
 
-    public Vendor changeName(@RequestParam(value = "currentName") String currentName, @RequestParam(value = "newName") String newName){
-        Optional<Vendor> vendorInDB = vendorRepository.findByName(currentName);
+    public Vendor changeName(@RequestParam(value = "currentRestaurantName") String currentRestaurantName, @RequestParam(value = "newRestaurantName") String newRestaurantName){
+        Optional<Vendor> vendorInDB = vendorRepository.findByRestaurantName(currentRestaurantName);
         if(vendorInDB.isPresent()){
             //Comparing old Name to new Name
-            vendorInDB.get().setName(newName);
+            vendorInDB.get().setRestaurantName(newRestaurantName);
             Vendor vendorSaved = vendorRepository.save(vendorInDB.get());
             return vendorSaved;
         }else{

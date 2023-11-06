@@ -16,7 +16,7 @@ public class Address {
     private Integer postcode;
     @JsonIgnore
     @OneToOne(mappedBy = "address")
-    private User user;
+    private Customer customer;
 
     @JsonIgnore
     @OneToOne(mappedBy = "address")
@@ -62,11 +62,11 @@ public class Address {
         this.postcode = postcode;
     }
 
-    public User getUser() {
-        return user;
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 }

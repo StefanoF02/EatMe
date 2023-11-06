@@ -1,9 +1,9 @@
 package com.example.EatMe.controller;
 
-import com.example.EatMe.dto.UserAddressDTO;
+import com.example.EatMe.dto.CustomerAddressDTO;
 import com.example.EatMe.model.Address;
 import com.example.EatMe.service.AddressService;
-import com.example.EatMe.service.UserAddressService;
+import com.example.EatMe.service.CustomerAddressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +15,7 @@ public class AddressController {
     @Autowired
     private AddressService addressService;
     @Autowired
-    private UserAddressService userAddressService;
+    private CustomerAddressService customerAddressService;
     @PostMapping("/add")
     public ResponseEntity<Address> addUser(@RequestBody Address newAddress){
         return addressService.addAddress(newAddress);
@@ -24,7 +24,7 @@ public class AddressController {
 
     @GetMapping("/get")
     public ResponseEntity<Address> getAddress(@RequestParam(value = "userID") int id ){
-        var userAddress = userAddressService.getAddress(id);
+        var userAddress = customerAddressService.getAddress(id);
         if(userAddress != null){
             return new ResponseEntity<Address>(userAddress, HttpStatus.OK);
         }else{
@@ -33,8 +33,8 @@ public class AddressController {
     }
 
     @PatchMapping("/edit")
-    public ResponseEntity<UserAddressDTO> editAddress(@RequestParam(value = "id") int id, @RequestBody Address newAddress){
-        if(userAddressService.editAddress(id,newAddress) != null){
+    public ResponseEntity<CustomerAddressDTO> editAddress(@RequestParam(value = "id") int id, @RequestBody Address newAddress){
+        if(customerAddressService.editAddress(id,newAddress) != null){
             return new ResponseEntity("Address edited", HttpStatus.OK);
         }else{
             return new ResponseEntity("Error", HttpStatus.OK);

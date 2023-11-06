@@ -26,11 +26,11 @@ public class VendorController {
         }
     }
 
-    @PatchMapping("/edit/name")
-    public ResponseEntity<Vendor> changeName(@RequestParam(value= "currentName") String currentName, @RequestParam(value= "newName") String newName){
-        Vendor updatedVendor = vendorService.changeName(currentName,newName);
+    @PatchMapping("/edit/restaurantName")
+    public ResponseEntity<Vendor> changeName(@RequestParam(value= "currentRestaurantName") String currentRestaurantName, @RequestParam(value= "newRestaurantName") String newRestaurantName){
+        Vendor updatedVendor = vendorService.changeName(currentRestaurantName,newRestaurantName);
         if(updatedVendor != null){
-            return new ResponseEntity("Name was changed to " + updatedVendor.getName(), HttpStatus.OK);
+            return new ResponseEntity("Name was changed to " + updatedVendor.getRestaurantName(), HttpStatus.OK);
         }else{
             return new ResponseEntity("Vendor not found", HttpStatus.BAD_REQUEST);
         }
