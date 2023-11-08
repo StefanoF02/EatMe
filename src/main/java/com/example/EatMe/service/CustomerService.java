@@ -2,6 +2,7 @@ package com.example.EatMe.service;
 
 import com.example.EatMe.model.Customer;
 import com.example.EatMe.repository.CustomerRepository;
+import com.example.EatMe.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,8 @@ import java.util.Optional;
 public class CustomerService {
     @Autowired
     private CustomerRepository customerRepository;
+    @Autowired
+    private OrderRepository orderRepository;
 
     public Customer setEmail(int id, String mail){
         Optional<Customer> customerToEdit = customerRepository.findById(id);

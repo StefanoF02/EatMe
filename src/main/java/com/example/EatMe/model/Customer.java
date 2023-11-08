@@ -1,24 +1,20 @@
 package com.example.EatMe.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 public class Customer extends User {
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name = "CUSTOMER_ORDER_TABLE",
-            joinColumns = {@JoinColumn(name = "order_id", referencedColumnName = "id")},
-            inverseJoinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")
-            })
-    private Set<Order> orders;
+    @JsonIgnore
+    @OneToMany(mappedBy = "customer")
+    private Set<Order> madeOrders = new HashSet<>();
 
-    public Set<Order> getOrders() {
-        return orders;
+    public Set<Order> getMadeOrders() {
+        return madeOrders;
     }
 
-    public void setOrders(Set<Order> orders) {
-        this.orders = orders;
-    }
 }

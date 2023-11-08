@@ -14,13 +14,15 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
-    @PostMapping("/create")
-    public ResponseEntity<HttpStatus> createOrder(@RequestParam(value = "customerId") int customerId, @RequestBody Order newOrder){
-        if (orderService.createOrder(customerId,newOrder) == true){
-            return new ResponseEntity("Order created", HttpStatus.OK);
-        }else{
-            return new ResponseEntity("Error", HttpStatus.BAD_REQUEST);
-
-        }
+    @PostMapping("/{customerId}/createOrder")
+    public ResponseEntity<Order> createOrder(@PathVariable int customerId, @RequestBody Order newOrder){
+        Order savedOrder = orderService.createOrder(customerId, newOrder);
+        return new ResponseEntity<Order>(savedOrder, HttpStatus.OK);
+//        if (orderService.createOrder(customerId,newOrder) == true){
+//            return new ResponseEntity("Order created", HttpStatus.OK);
+//        }else{
+//            return new ResponseEntity("Error", HttpStatus.BAD_REQUEST);
+//
+//        }
     }
 }

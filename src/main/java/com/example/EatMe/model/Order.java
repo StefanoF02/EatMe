@@ -2,8 +2,6 @@ package com.example.EatMe.model;
 
 import jakarta.persistence.*;
 
-import java.util.Set;
-
 @Table(name = "orders")
 @Entity
 public class Order {
@@ -16,8 +14,10 @@ public class Order {
 //    private int price;
 //    private String payMethod;
 //    private Vendor vendor;
-    @ManyToMany(mappedBy = "orders")
-    private Set<Customer> customers;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private Customer customer;
 
     public int getID() {
         return id;
@@ -35,11 +35,12 @@ public class Order {
         this.orderKey = orderKey;
     }
 
-    public Set<Customer> getCustomers() {
-        return customers;
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public void setCustomers(Set<Customer> customers) {
-        this.customers = customers;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
+
 }
