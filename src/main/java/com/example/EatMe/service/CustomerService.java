@@ -1,6 +1,8 @@
 package com.example.EatMe.service;
 
+import com.example.EatMe.dto.CustomerAddressDTO;
 import com.example.EatMe.model.Customer;
+import com.example.EatMe.repository.AddressRepository;
 import com.example.EatMe.repository.CustomerRepository;
 import com.example.EatMe.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,16 +10,34 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class CustomerService {
     @Autowired
     private CustomerRepository customerRepository;
     @Autowired
+    private AddressRepository addressRepository;
+    @Autowired
     private OrderRepository orderRepository;
 
-    public Customer setEmail(int id, String mail){
-        Optional<Customer> customerToEdit = customerRepository.findById(id);
+
+    public CustomerAddressDTO createUserAddressDTO(CustomerAddressDTO customerAddressDTO){
+        //# This function creates an address even if the customer is already existing?
+        var customerInDB = customerRepository.findByMail(customerAddressDTO.getCustomer().getMail());
+        if(customerInDB.isPresent()){
+            return null;
+        }else{
+            var saveInDB = addressRepository.save(customerAddressDTO.getAddress());
+            customerAddressDTO.getCustomer().setAddress(saveInDB);
+            customerAddressDTO.getCustomer().setUuid(UUID.randomUUID().toString());
+            customerRepository.save(customerAddressDTO.getCustomer());
+            return customerAddressDTO;
+        }
+    }
+
+    public Customer setEmail(String uuid, String mail){
+        Optional<Customer> customerToEdit = customerRepository.findByUUID(uuid);
             if(customerToEdit.isPresent()){
                 //Comparing old email to new email
                 customerToEdit.get().setMail(mail);
@@ -28,8 +48,8 @@ public class CustomerService {
             }
     }
 
-    public HttpStatus setPassword(int id, String oldPassword, String newPassword){
-        Optional<Customer> customerToEdit = customerRepository.findById(id);
+    public HttpStatus setPassword(String uuid, String oldPassword, String newPassword){
+        Optional<Customer> customerToEdit = customerRepository.findByUUID(uuid);
         if(customerToEdit.isPresent()){
             if(customerToEdit.get().getPassword().equals(oldPassword)) {
                 customerToEdit.get().setPassword(newPassword);
@@ -43,14 +63,27 @@ public class CustomerService {
         }
     }
 
-    public boolean setName(int id, String newName, String newSurname){
-        Optional<Customer> customerToEdit = customerRepository.findById(id);
+    public boolean setName(String uuid, String newName, String newSurname){
+        Optional<Customer> customerToEdit = customerRepository.findByUUID(uuid);
         if(customerToEdit.isPresent()){
             customerToEdit.get().setFirstname(newName);
             customerToEdit.get().setSurname(newSurname);
             Customer customerToSave = customerRepository.save(customerToEdit.get());
             return true;
         }else{
+            return false;
+        }
+    }
+
+    public boolean deleteUserAddressDTO(String uuid){
+        var customerToDelete = customerRepository.findByUUID(uuid);
+        if(customerToDelete.isPresent()){
+            var addressIDToDelete = customerToDelete.get().getAddress().getId();
+            addressRepository.deleteById(addressIDToDelete);
+            int customerID = customerToDelete.get().getId();
+            customerRepository.deleteById(customerID);
+            return true;
+        }else {
             return false;
         }
     }

@@ -8,6 +8,9 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column
+    private String UUID;
+
     @Column(nullable = false)
     private String firstname;
 
@@ -26,14 +29,8 @@ public class User {
     public Address address;
 
     @Column(nullable = true)
-    private String userType;
+    private String role;
 
-    public String getPassword() {
-        return password;
-    }
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
     public Integer getId() {
         return id;
@@ -41,6 +38,14 @@ public class User {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getUuid() {
+        return UUID;
+    }
+
+    public void setUuid(String uuid) {
+        this.UUID = uuid;
     }
 
     public String getFirstname() {
@@ -74,14 +79,21 @@ public class User {
     public void setAddress(Address address) {
         this.address = address;
     }
-    public String getUserType() {
-        return userType;
+
+    public String getPassword() {
+        return password;
+    }
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public void setUserType(String userType) {
-        this.userType = userType;
+    public String getRole() {
+        return role;
     }
 
+    public void setRole(String role) {
+        this.role = role;
+    }
 }
 
 

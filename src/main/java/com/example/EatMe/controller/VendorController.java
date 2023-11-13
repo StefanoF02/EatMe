@@ -2,7 +2,6 @@ package com.example.EatMe.controller;
 
 import com.example.EatMe.dto.VendorAddressDTO;
 import com.example.EatMe.model.Vendor;
-import com.example.EatMe.service.VendorAddressService;
 import com.example.EatMe.service.VendorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,11 +13,9 @@ import org.springframework.web.bind.annotation.*;
 public class VendorController {
     @Autowired
     private VendorService vendorService;
-    @Autowired
-    private VendorAddressService vendorAddressService;
     @PostMapping("/add")
     public ResponseEntity<VendorAddressDTO> addVendor(@RequestBody VendorAddressDTO vendorAddressDTO){
-        VendorAddressDTO vendorToSave =  vendorAddressService.createVendorAddressDTO(vendorAddressDTO);
+        VendorAddressDTO vendorToSave =  vendorService.createVendorAddressDTO(vendorAddressDTO);
         if(vendorToSave != null){
             return new ResponseEntity<VendorAddressDTO>(vendorToSave, HttpStatus.OK);
         }else{
@@ -27,8 +24,8 @@ public class VendorController {
     }
 
     @PatchMapping("/edit/restaurantName")
-    public ResponseEntity<Vendor> editName(@RequestParam(value= "currentRestaurantName") String currentRestaurantName, @RequestParam(value= "newRestaurantName") String newRestaurantName){
-        Vendor updatedVendor = vendorService.changeName(currentRestaurantName,newRestaurantName);
+    public ResponseEntity<Vendor> editName(@RequestParam(value= "uuid") String uuid,@RequestParam(value= "currentRestaurantName") String currentRestaurantName, @RequestParam(value= "newRestaurantName") String newRestaurantName){
+        Vendor updatedVendor = vendorService.changeName(uuid,currentRestaurantName,newRestaurantName);
         if(updatedVendor != null){
             return new ResponseEntity("Name was changed to " + updatedVendor.getRestaurantName(), HttpStatus.OK);
         }else{

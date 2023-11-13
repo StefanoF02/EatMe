@@ -8,4 +8,6 @@ import java.util.Optional;
 public interface CustomerRepository extends CrudRepository<Customer,Integer> {
     Optional<Customer> findByMail(String mail);
 
+    Optional<Customer> findByUUID(String uuid);
+
 }
