@@ -14,15 +14,20 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
-    @PostMapping("/{customerId}/createOrder")
-    public ResponseEntity<Order> createOrder(@PathVariable int customerId, @RequestBody Order newOrder){
-        Order savedOrder = orderService.createOrder(customerId, newOrder);
-        return new ResponseEntity<Order>(savedOrder, HttpStatus.OK);
-//        if (orderService.createOrder(customerId,newOrder) == true){
-//            return new ResponseEntity("Order created", HttpStatus.OK);
-//        }else{
-//            return new ResponseEntity("Error", HttpStatus.BAD_REQUEST);
-//
-//        }
+    @PostMapping("/{vendorId}/createOrder/{customerId}")
+    public ResponseEntity<Order> createOrder(@PathVariable int customerId, @PathVariable int vendorId,  @RequestBody Order newOrder){
+        Order savedOrder = orderService.createOrder(customerId,vendorId, newOrder);
+        if(savedOrder != null){
+            return new ResponseEntity<Order>(savedOrder, HttpStatus.OK);
+        }else{
+            return new ResponseEntity("Error", HttpStatus.BAD_REQUEST);
+        }
+
+    }
+
+    @PatchMapping("/cancel/{orderKey}")
+    public ResponseEntity cancelOrder(@PathVariable String orderKey){
+        orderService.cancelOrder(orderKey);
+        return new ResponseEntity("Order got canceled", HttpStatus.OK);
     }
 }
