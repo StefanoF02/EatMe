@@ -24,7 +24,7 @@ public class VendorService {
         } else {
             var saveInDB = addressRepository.save(vendorAddressDTO.getAddress());
             vendorAddressDTO.getVendor().setAddress(saveInDB);
-            vendorAddressDTO.getVendor().setUuid(UUID.randomUUID().toString());
+            vendorAddressDTO.getVendor().setUuid(UUID.randomUUID().toString().replace("-", ""));
             vendorRepository.save(vendorAddressDTO.getVendor());
             return vendorAddressDTO;
         }

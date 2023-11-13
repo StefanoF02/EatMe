@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class OrderService {
@@ -21,15 +22,16 @@ public class OrderService {
     @Autowired
     private VendorRepository vendorRepository;
 
-    public Order createOrder(int customerId, int vendorID, Order newOrder){
+    public Order createOrder(String customerUUID, String VendorUUID, Order newOrder){
         Optional<Order> orderInDB = orderRepository.findByOrderKey(newOrder.getOrderKey());
         if(orderInDB.isPresent()){
             return null;
         }else{
-            Customer customer = customerRepository.findById(customerId).get();
-            Vendor vendor = vendorRepository.findById(vendorID).get();
+            Customer customer = customerRepository.findByUUID(customerUUID).get();
+            Vendor vendor = vendorRepository.findByUUID(VendorUUID).get();
             newOrder.setCustomer(customer);
             newOrder.setVendor(vendor);
+            newOrder.setOrderKey(UUID.randomUUID().toString().replace("-", ""));
             Order orderToSave = orderRepository.save(newOrder);
             customer.getMadeOrders().add(orderToSave);
             customerRepository.save(customer);

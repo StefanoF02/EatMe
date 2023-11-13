@@ -21,7 +21,6 @@ public class CustomerService {
     @Autowired
     private OrderRepository orderRepository;
 
-
     public CustomerAddressDTO createUserAddressDTO(CustomerAddressDTO customerAddressDTO){
         //# This function creates an address even if the customer is already existing?
         var customerInDB = customerRepository.findByMail(customerAddressDTO.getCustomer().getMail());
@@ -30,7 +29,7 @@ public class CustomerService {
         }else{
             var saveInDB = addressRepository.save(customerAddressDTO.getAddress());
             customerAddressDTO.getCustomer().setAddress(saveInDB);
-            customerAddressDTO.getCustomer().setUuid(UUID.randomUUID().toString());
+            customerAddressDTO.getCustomer().setUuid(UUID.randomUUID().toString().replace("-", ""));
             customerRepository.save(customerAddressDTO.getCustomer());
             return customerAddressDTO;
         }

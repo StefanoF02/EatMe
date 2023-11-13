@@ -14,9 +14,9 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
-    @PostMapping("/{vendorId}/createOrder/{customerId}")
-    public ResponseEntity<Order> createOrder(@PathVariable int customerId, @PathVariable int vendorId,  @RequestBody Order newOrder){
-        Order savedOrder = orderService.createOrder(customerId,vendorId, newOrder);
+    @PostMapping("/{vendorUUID}/createOrder/{customerUUID}")
+    public ResponseEntity<Order> createOrder(@PathVariable String customerUUID, @PathVariable String vendorUUID,  @RequestBody Order newOrder){
+        Order savedOrder = orderService.createOrder(customerUUID,vendorUUID, newOrder);
         if(savedOrder != null){
             return new ResponseEntity<Order>(savedOrder, HttpStatus.OK);
         }else{

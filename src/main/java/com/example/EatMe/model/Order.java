@@ -1,5 +1,6 @@
 package com.example.EatMe.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -22,10 +23,11 @@ public class Order {
     private double price;
     private String payMethod;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private Customer customer;
-
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name="vendor_id", nullable = false)
     private Vendor vendor;
