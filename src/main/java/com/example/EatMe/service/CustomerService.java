@@ -7,6 +7,7 @@ import com.example.EatMe.repository.CustomerRepository;
 import com.example.EatMe.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -20,7 +21,8 @@ public class CustomerService {
     private AddressRepository addressRepository;
     @Autowired
     private OrderRepository orderRepository;
-
+    @Autowired
+    private PasswordEncoder passwordEncoder;
     public CustomerAddressDTO createUserAddressDTO(CustomerAddressDTO customerAddressDTO){
         //# This function creates an address even if the customer is already existing?
         var customerInDB = customerRepository.findByMail(customerAddressDTO.getCustomer().getMail());
@@ -30,6 +32,7 @@ public class CustomerService {
             var saveInDB = addressRepository.save(customerAddressDTO.getAddress());
             customerAddressDTO.getCustomer().setAddress(saveInDB);
             customerAddressDTO.getCustomer().setUuid(UUID.randomUUID().toString().replace("-", ""));
+//            customerAddressDTO.getCustomer().setPassword(passwordEncoder.encode(customerAddressDTO.getCustomer().getPassword()));
             customerRepository.save(customerAddressDTO.getCustomer());
             return customerAddressDTO;
         }

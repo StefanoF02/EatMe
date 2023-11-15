@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private int id;
 
     @Column
     private String UUID;
@@ -31,6 +31,15 @@ public class User {
     @Column(nullable = true)
     private String role;
 
+//    public User(int id,String UUID, String firstname, String surname, String mail, String password, Address address) {
+//        this.id = id;
+//        this.UUID = UUID;
+//        this.firstname = firstname;
+//        this.surname = surname;
+//        this.mail = mail;
+//        this.password = password;
+//        this.address = address;
+//    }
 
     public Integer getId() {
         return id;

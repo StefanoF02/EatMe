@@ -7,13 +7,13 @@ import jakarta.persistence.*;
 public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private int id;
     @Column(nullable = false)
     private String street;
     @Column(nullable = false)
-    private Integer streetNumber;
+    private int streetNumber;
     @Column(nullable = false)
-    private Integer postcode;
+    private int postcode;
     @JsonIgnore
     @OneToOne(mappedBy = "address")
     private Customer customer;
@@ -21,6 +21,13 @@ public class Address {
     @JsonIgnore
     @OneToOne(mappedBy = "address")
     private Vendor vendor;
+
+    public Address(int id, String street, int streetNumber, int postcode) {
+        this.id = id;
+        this.street = street;
+        this.streetNumber = streetNumber;
+        this.postcode = postcode;
+    }
 
     public Vendor getVendor() {
         return vendor;
